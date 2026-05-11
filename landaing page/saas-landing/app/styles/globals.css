@@ -1,0 +1,117 @@
+/*
+ * globals.css
+ *
+ * TEACHING NOTES:
+ * ───────────────
+ * 1. `@tailwind base` injects Preflight (browser reset) + base styles.
+ * 2. `@tailwind components` injects component classes (@apply friendly zone).
+ * 3. `@tailwind utilities` injects all utility classes.
+ *
+ * The `@layer base` block sets CSS custom properties (variables) that
+ * Tailwind's config references via the `var()` syntax.
+ * This keeps your design tokens as a single source of truth.
+ */
+
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@700,800&f[]=satoshi@400,500,600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS custom properties (design tokens) ─────── */
+@layer base {
+  :root {
+    --font-display: "Cabinet Grotesk", system-ui, sans-serif;
+    --font-body: "Satoshi", system-ui, sans-serif;
+    --radius: 0.75rem;
+
+    /* Scroll behavior */
+    scroll-behavior: smooth;
+  }
+
+  /* Base element resets */
+  * {
+    @apply border-surface-100;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-white text-surface-800 font-body;
+    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+  }
+
+  /* Headings default to display font */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Smooth focus rings */
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-500 ring-offset-2;
+  }
+}
+
+/* ── Scrollbar styling ─────────────────────────── */
+@layer base {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-50;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-300 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-surface-400;
+  }
+}
+
+/* ── Utility classes ───────────────────────────── */
+@layer utilities {
+  /* Text gradient — note: requires bg-clip-text + text-transparent */
+  .text-gradient {
+    @apply bg-text-gradient bg-clip-text text-transparent;
+  }
+
+  /* Balance text for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Container query helper */
+  .container-query {
+    container-type: inline-size;
+  }
+}
+
+/* ── Component classes ─────────────────────────── */
+@layer components {
+  /* 
+   * .section-container — standard page section wrapper.
+   * Using @apply composes Tailwind utilities into a reusable class.
+   * Use sparingly — prefer utility classes in JSX for discoverability.
+   */
+  .section-container {
+    @apply mx-auto max-w-7xl px-6 lg:px-8;
+  }
+
+  /* Prose for long-form content */
+  .prose-brand {
+    @apply text-surface-600 leading-relaxed;
+    
+    & h2 {
+      @apply font-display text-2xl font-bold text-surface-900 mt-10 mb-4;
+    }
+    & p {
+      @apply mb-4;
+    }
+    & a {
+      @apply text-brand-500 hover:underline;
+    }
+  }
+}
