@@ -1,0 +1,272 @@
+/* app/globals.css */
+/* 🧠 CONCEPT: Global Styles
+   This file applies styles to the ENTIRE app.
+   It's imported once in layout.tsx and affects every page. */
+
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── CSS Variables (Design Tokens) ───────────────────────── */
+/* 🧠 TIP: Using variables makes it easy to change your whole
+   color scheme from one place! */
+:root {
+  --bg:         #0a0a0f;
+  --bg-card:    #13131a;
+  --border:     #2a2a3a;
+  --accent:     #6c63ff;
+  --accent-2:   #ff6584;
+  --text:       #e8e8f0;
+  --text-muted: #888899;
+  --font-heading: 'Georgia', serif;
+  --font-body:    system-ui, sans-serif;
+  --radius:     12px;
+  --max-width:  1100px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.7;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Layout Helpers ───────────────────────────────────────── */
+.main-content {
+  flex: 1;
+  padding-top: 70px; /* offset for fixed navbar */
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── Typography ───────────────────────────────────────────── */
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Reusable Card ────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.card:hover {
+  border-color: var(--accent);
+  transform: translateY(-4px);
+}
+
+/* ── Button ───────────────────────────────────────────────── */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn:hover { opacity: 0.85; transform: translateY(-2px); }
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+}
+.btn-outline:hover { background: var(--accent); color: #fff; }
+
+/* ── Badge ────────────────────────────────────────────────── */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  background: rgba(108, 99, 255, 0.15);
+  color: var(--accent);
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── Navbar ───────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+}
+.navbar .container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-logo {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.navbar-links { display: flex; gap: 8px; list-style: none; }
+.navbar-links a {
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  transition: color 0.2s, background 0.2s;
+}
+.navbar-links a:hover,
+.navbar-links a.active { color: var(--text); background: var(--border); }
+
+/* ── Footer ───────────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── Hero Section ─────────────────────────────────────────── */
+.hero {
+  padding: 100px 0 80px;
+  text-align: center;
+}
+.hero-eyebrow {
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #fff 40%, var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero p {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 540px;
+  margin: 0 auto 36px;
+}
+.hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ── Grid Layouts ─────────────────────────────────────────── */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* ── Section ──────────────────────────────────────────────── */
+.section { padding: 80px 0; }
+.section-header { margin-bottom: 48px; }
+.section-header h2 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  margin-bottom: 12px;
+}
+.section-header p { color: var(--text-muted); max-width: 520px; }
+
+/* ── Page Header (About / Blog) ───────────────────────────── */
+.page-header {
+  padding: 80px 0 48px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 64px;
+}
+.page-header h1 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  margin-bottom: 12px;
+}
+.page-header p { color: var(--text-muted); font-size: 1.1rem; }
+
+/* ── Blog ─────────────────────────────────────────────────── */
+.blog-grid { display: grid; gap: 28px; }
+.blog-card-link { display: block; }
+.blog-card-meta {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.blog-date { color: var(--text-muted); font-size: 0.85rem; }
+.blog-card h2 { font-size: 1.35rem; margin-bottom: 10px; }
+.blog-card p { color: var(--text-muted); margin-bottom: 18px; }
+.blog-read-more {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ── About Page ───────────────────────────────────────────── */
+.about-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  padding: 80px 0;
+}
+@media (max-width: 700px) {
+  .about-intro { grid-template-columns: 1fr; }
+}
+.about-intro h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 20px; }
+.about-intro p { color: var(--text-muted); margin-bottom: 16px; }
+.about-avatar {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+}
+.skill-list { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+.skill-tag {
+  padding: 6px 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+/* ── Concept Callout (educational boxes) ─────────────────── */
+.concept-box {
+  background: rgba(108, 99, 255, 0.08);
+  border: 1px solid rgba(108, 99, 255, 0.25);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 32px 0;
+  font-size: 0.95rem;
+}
+.concept-box strong { color: var(--accent); }
